@@ -96,7 +96,7 @@ const SignIn = () => {
           </button>
 
           <p className="text-center text-sm text-gray-500">
-            No account?
+            You Have No account?
             <Link className="underline" to="/sign-up">
               Sign up
             </Link>
