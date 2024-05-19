@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const SignIn = () => {
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
@@ -95,9 +97,9 @@ const SignIn = () => {
 
           <p className="text-center text-sm text-gray-500">
             No account?
-            <a className="underline" href="#">
+            <Link className="underline" to="/sign-up">
               Sign up
-            </a>
+            </Link>
           </p>
         </form>
       </div>
