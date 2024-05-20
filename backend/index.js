@@ -5,9 +5,6 @@ import mongoose from "mongoose";
 // Load environment variables from .env file
 dotenv.config();
 
-// var username = encodeURIComponent("imkawsar007");
-// var password = encodeURIComponent("Happy2023?");
-
 const mongoUri = process.env.MONGO_URI;
 
 if (!mongoUri) {
