@@ -14,7 +14,7 @@ if (!mongoUri) {
 }
 
 mongoose
-  .connect(mongoUri)
+  .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Database connection established");
   })
