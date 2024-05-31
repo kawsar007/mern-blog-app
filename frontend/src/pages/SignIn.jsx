@@ -1,107 +1,113 @@
-import { Link } from "react-router-dom";
+import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.email || !formData.password) {
+      return setErrorMessage("Please fill out all required fields");
+    }
+    try {
+      setLoading(true);
+      setErrorMessage("null");
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log(data.message);
+      // if (data.success === false) {
+      //   return setErrorMessage(data.message);
+      // }
+      setErrorMessage(data.message);
+      setLoading(false);
+      if (res.ok) {
+        navigate("/");
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setLoading(false);
+    }
+  };
+
+  console.log(formData);
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-lg">
-        <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
-          Get started today
-        </h1>
-
-        <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </p>
-
-        <form
-          action="#"
-          className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
-        >
-          <p className="text-center text-lg font-medium">
-            Sign in to your account
+    <div className="min-h-screen mt-20">
+      <div className="flex flex-col p-3 max-w-3xl mx-auto md:flex-row md:items-center gap-5">
+        {/* Left */}
+        <div className="flex-1">
+          <Link to="/" className="font-bold dark:text-white text-4xl">
+            <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
+              Kawsar&apos;s
+            </span>
+            Blog
+          </Link>
+          <p className="text-sm mt-5">
+            This is a demo project. You can sign in with your email and password
+            or with Google.
           </p>
+        </div>
 
-          <div>
-            <label htmlFor="email" className="sr-only">
-              Email
-            </label>
-
-            <div className="relative">
-              <input
+        {/* Right */}
+        <div className="flex-1">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <div className="">
+              <Label value="Your email" />
+              <TextInput
                 type="email"
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter email"
+                placeholder="Email"
+                id="email"
+                onChange={handleChange}
               />
-
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="size-4 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                  />
-                </svg>
-              </span>
             </div>
-          </div>
 
-          <div>
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
-
-            <div className="relative">
-              <input
+            <div className="">
+              <Label value="Your password" />
+              <TextInput
                 type="password"
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter password"
+                placeholder="********"
+                id="password"
+                onChange={handleChange}
               />
-
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="size-4 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                  />
-                </svg>
-              </span>
             </div>
-          </div>
-
-          <button
-            type="submit"
-            className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
-          >
-            Sign in
-          </button>
-
-          <p className="text-center text-sm text-gray-500">
-            You Have No account?
-            <Link className="underline" to="/sign-up">
-              Sign up
+            <Button
+              gradientDuoTone="purpleToPink"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Spinner size="sm" />
+                  <span className="pl-3">Loading...</span>
+                </>
+              ) : (
+                "Sign In"
+              )}
+            </Button>
+          </form>
+          <div className="flex gap-2 text-sm mt-5">
+            <span>Dont Have an account?</span>
+            <Link to="/sign-up" className="text-blue-500">
+              Sign Up
             </Link>
-          </p>
-        </form>
+          </div>
+          {errorMessage && (
+            <Alert className="mt-5" color="failure">
+              {errorMessage}
+            </Alert>
+          )}
+        </div>
       </div>
     </div>
   );
