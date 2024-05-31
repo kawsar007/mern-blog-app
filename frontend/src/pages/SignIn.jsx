@@ -26,7 +26,6 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data.message);
       // if (data.success === false) {
       //   return setErrorMessage(data.message);
       // }
@@ -41,7 +40,6 @@ const SignIn = () => {
     }
   };
 
-  console.log(formData);
   return (
     <div className="min-h-screen mt-20">
       <div className="flex flex-col p-3 max-w-3xl mx-auto md:flex-row md:items-center gap-5">

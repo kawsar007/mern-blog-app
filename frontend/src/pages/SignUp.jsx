@@ -26,7 +26,6 @@ const SignUp = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data.message);
       // if (data.success === false) {
       //   return setErrorMessage(data.message);
       // }
@@ -54,9 +53,8 @@ const SignUp = () => {
             Blog
           </Link>
           <p className="text-sm mt-5">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo
-            nostrum perferendis eligendi cum beatae vitae fugiat repudiandae eos
-            quo fuga!
+            This is a demo project. You can sign up with your email and password
+            or with Google.
           </p>
         </div>
 
