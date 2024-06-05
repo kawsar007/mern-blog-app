@@ -104,7 +104,6 @@ const SignUp = () => {
               ) : (
                 "Sign Up"
               )}
-              ;
             </Button>
             <OAuth />
           </form>
