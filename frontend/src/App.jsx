@@ -3,7 +3,7 @@ import FooterComp from "./components/Footer";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import About from "./pages/About";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import SignIn from "./pages/SignIn";
