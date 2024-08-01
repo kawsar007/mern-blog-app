@@ -156,7 +156,7 @@ export default function Posts() {
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure" onClick={handleDeletePost}>
-                Yes, I'm sure
+                Yes, I&apos;m sure
               </Button>
               <Button onClick={() => setShowModal(false)}>No, cancel</Button>
             </div>
