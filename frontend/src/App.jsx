@@ -7,6 +7,7 @@ import About from "./pages/About";
 import CreatePost from "./pages/CreatePost";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Home from "./pages/Home";
+import PostPage from "./pages/PostPage";
 import Projects from "./pages/Projects";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
         <Route path="/projects" element={<Projects />} />
+        <Route path="/post/:postSlug" element={<PostPage />} />
       </Routes>
       <FooterComp />
     </BrowserRouter>
