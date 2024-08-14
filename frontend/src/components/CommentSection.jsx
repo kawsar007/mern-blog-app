@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Button, Textarea } from "flowbite-react";
+import { Alert, Button, Textarea } from "flowbite-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,9 +7,39 @@ import { Link } from "react-router-dom";
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
+  const [commentError, setCommentError] = useState(null);
+
+  console.log(currentUser);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Handle Click");
+
+    if (comment.length > 200) {
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/comment/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: comment,
+          postId,
+          userId: currentUser._id,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (res.ok) {
+        setComment("");
+        setCommentError(null);
+      }
+    } catch (error) {
+      setCommentError(error.message);
+    }
   };
 
   return (
@@ -58,6 +88,11 @@ const CommentSection = ({ postId }) => {
               Submit
             </Button>
           </div>
+          {commentError && (
+            <Alert color="failure" className="mt-5">
+              {commentError}
+            </Alert>
+          )}
         </form>
       )}
     </div>
