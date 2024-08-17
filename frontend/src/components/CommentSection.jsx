@@ -12,8 +12,6 @@ const CommentSection = ({ postId }) => {
   const [comments, setComments] = useState([]);
   const [commentError, setCommentError] = useState(null);
 
-  console.log(comments);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Handle Click");
@@ -89,6 +87,14 @@ const CommentSection = ({ postId }) => {
     }
   };
 
+  const handleEdit = async (comment, editedContent) => {
+    setComments(
+      comments.map((c) =>
+        c?._id === comment?._id ? { ...c, content: editedContent } : c,
+      ),
+    );
+  };
+
   return (
     <div>
       {currentUser ? (
@@ -151,7 +157,7 @@ const CommentSection = ({ postId }) => {
             </div>
           </div>
           {comments.map((comment) => (
-            <Comment key={comment?._id} comment={comment} onLike={handleLike} />
+            <Comment key={comment?._id} comment={comment} onLike={handleLike} onEdit={handleEdit} />
           ))}
         </>
       )}
