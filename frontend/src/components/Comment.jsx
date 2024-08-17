@@ -11,7 +11,6 @@ const Comment = ({ comment, onLike, onEdit }) => {
   const [editedContent, setEditedContent] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
 
- 
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -28,8 +27,8 @@ const Comment = ({ comment, onLike, onEdit }) => {
   }, [comment]);
 
   const handleEdit = () => {
-    setIsEditing(true)
-    setEditedContent(comment.content)
+    setIsEditing(true);
+    setEditedContent(comment.content);
   };
 
   const handleSave = async () => {
@@ -37,13 +36,13 @@ const Comment = ({ comment, onLike, onEdit }) => {
       const res = await fetch(`/api/comment/editComment/${comment._id}`, {
         method: "PUT",
         headers: {
-          'Content-Type': "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          content: editedContent
-        })
+          content: editedContent,
+        }),
       });
-      if(res.ok){
+      if (res.ok) {
         setIsEditing(false);
         onEdit(comment, editedContent);
       }
@@ -79,8 +78,7 @@ const Comment = ({ comment, onLike, onEdit }) => {
                 type='button'
                 size='sm'
                 gradientDuoTone='purpleToBlue'
-                onClick={handleSave}
-              >
+                onClick={handleSave}>
                 Save
               </Button>
               <Button
@@ -88,8 +86,7 @@ const Comment = ({ comment, onLike, onEdit }) => {
                 size='sm'
                 gradientDuoTone='purpleToBlue'
                 outline
-                onClick={() => setIsEditing(false)}
-              >
+                onClick={() => setIsEditing(false)}>
                 Cancel
               </Button>
             </div>
@@ -104,16 +101,15 @@ const Comment = ({ comment, onLike, onEdit }) => {
                 className={`text-gray-400 hover:text-blue-500 ${
                   currentUser &&
                   comment.likes.includes(currentUser._id) &&
-                  '!text-blue-500'
-                }`}
-              >
+                  "!text-blue-500"
+                }`}>
                 <FaThumbsUp className='text-sm' />
               </button>
               <p className='text-gray-400'>
                 {comment.numberOfLikes > 0 &&
                   comment.numberOfLikes +
-                    ' ' +
-                    (comment.numberOfLikes === 1 ? 'like' : 'likes')}
+                    " " +
+                    (comment.numberOfLikes === 1 ? "like" : "likes")}
               </p>
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
@@ -121,8 +117,7 @@ const Comment = ({ comment, onLike, onEdit }) => {
                     <button
                       type='button'
                       onClick={handleEdit}
-                      className='text-gray-400 hover:text-blue-500'
-                    >
+                      className='text-gray-400 hover:text-blue-500'>
                       Edit
                     </button>
                   </>
