@@ -47,9 +47,9 @@ export default function DashboardComments() {
   };
 
   const handleDeleteComment = async () => {
-    // setShowModal(false);
+    setShowModal(false);
     try {
-      const res = await fetch(`/api/comment/delete/${commentIdToDelete}`, {
+      const res = await fetch(`/api/comment/deleteComment/${commentIdToDelete}`, {
         method: "DELETE",
       });
       const data = await res.json();
