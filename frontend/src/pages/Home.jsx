@@ -2,22 +2,22 @@ import { useEffect, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
+import PersonalInfo from "../components/PersonalInfo";
 import PostCard from "../components/PostCard";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
 
   console.log(posts);
-  
 
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await fetch("/api/post/getPosts");
       const data = await res.json();
-      const sortedPosts = data.posts.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-      );
-      setPosts(sortedPosts);
+      // const sortedPosts = data.posts.sort(
+      //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      // );
+      setPosts(data.posts);
     };
     fetchPosts();
   }, []);
@@ -65,6 +65,11 @@ export default function Home() {
           </div>
         </header>
       </div>
+      <div>
+        <PersonalInfo />
+        
+      </div>
+
       <div className='p-3 bg-amber-100 dark:bg-slate-700'>
         <CallToAction />
       </div>
