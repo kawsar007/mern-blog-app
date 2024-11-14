@@ -1,14 +1,14 @@
 import { CiMail } from "react-icons/ci";
 import {
+  FaDribbble,
   FaFacebook,
   FaFacebookMessenger,
   FaGithub,
   FaInstagram,
   FaLinkedin,
-  FaTwitter,
+  FaTwitter
 } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
-import { TbWorldWww } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import kawsar from "../../assets/kawsar.jpg";
 const ProfileCard = () => {
@@ -52,7 +52,7 @@ const ProfileCard = () => {
       </div>
 
       {/* Stats */}
-      <div className='mt-6 mb-3 flex gap-14 md:!gap-14'>
+      {/* <div className='mt-6 mb-3 flex gap-14 md:!gap-14'>
         <div className='flex flex-col items-center justify-center'>
           <p className='text-2xl font-bold text-navy-700 dark:text-white'>17</p>
           <p className='text-sm font-normal text-gray-600'>Posts</p>
@@ -69,7 +69,7 @@ const ProfileCard = () => {
           </p>
           <p className='text-sm font-normal text-gray-600'>Following</p>
         </div>
-      </div>
+      </div> */}
 
       <div className='mt-2 w-full border-t-2 border-black dark:border-white'>
         <div className='mt-2 flex justify-center gap-6 pb-2 text-gray-400'>
@@ -85,6 +85,7 @@ const ProfileCard = () => {
           <Link href='#' className='transition hover:text-gray-200'>
             <FaTwitter className='w-5 h-5' />
           </Link>
+
           <Link href='#' className='transition hover:text-gray-200'>
             <FaLinkedin className='w-5 h-5' />
           </Link>
@@ -92,7 +93,7 @@ const ProfileCard = () => {
             <FaInstagram className='w-5 h-5' />
           </Link>
           <Link href='#' className='transition hover:text-gray-200'>
-            <TbWorldWww className='w-5 h-5' />
+          <FaDribbble className='w-5 h-5' />
           </Link>
         </div>
       </div>
