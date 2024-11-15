@@ -1,4 +1,5 @@
 import ExploreMe from "./ExploreMe";
+import PortfolioCard from "./PortfolioCard";
 import ProfileCard from "./ProfileCard";
 import RandomBlog from "./RandomBlog";
 
@@ -10,7 +11,10 @@ const PersonalInfo = () => {
         <div className='flex flex-col lg:w-2/3 gap-4'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             <ExploreMe />
-            <RandomBlog />
+            <div className='flex flex-col gap-3'>
+              <RandomBlog />
+              <PortfolioCard />
+            </div>
           </div>
         </div>
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import CallToAction from "../components/CallToAction";
 import PersonalInfo from "../components/PersonalInfo";
 import PostCard from "../components/PostCard";
 
@@ -49,6 +48,7 @@ export default function Home() {
               </Link>
               <Link
                 to='https://github.com/kawsar007/mern-blog-app'
+                target='_blank'
                 className='py-2 px-6 min-w-fit rounded-full bg-transparent border-black text-black transition-all duration-200 border flex items-center'>
                 <FaGithub className='mr-2' /> Github
               </Link>
@@ -70,9 +70,9 @@ export default function Home() {
         
       </div>
 
-      <div className='p-3 bg-amber-100 dark:bg-slate-700'>
+      {/* <div className='p-3 bg-amber-100 dark:bg-slate-700'>
         <CallToAction />
-      </div>
+      </div> */}
 
       <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
         {posts && posts.length > 0 && (
