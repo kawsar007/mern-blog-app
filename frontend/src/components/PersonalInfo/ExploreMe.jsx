@@ -11,11 +11,6 @@ const ExploreMe = () => {
         alt='animated_cards'
         className='w-full h-[450px] object-cover'
       />
-      {/* <img
-        src='https://img.freepik.com/free-photo/indoor-picture-cheerful-handsome-young-man-having-folded-hands-looking-directly-smiling-sincerely-wearing-casual-clothes_176532-10257.jpg?t=st=1728139729~exp=1728143329~hmac=dd0870841ecbe138afdb639fee17206241a94b02b17e1e681ad16eba38f0bd7b&w=996'
-        alt='animated_cards'
-        className='w-full h-[450px] object-cover'
-      /> */}
 
       {/*  texts  */}
       <div className='flex items-center justify-evenly backdrop-blur-md text-white absolute bottom-0 w-full pt-[15px] pb-[30px] translate-y-[200px] group-hover:translate-y-0 transition-all duration-[400ms] overflow-hidden'>

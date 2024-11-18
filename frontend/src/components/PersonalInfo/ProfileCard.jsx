@@ -46,9 +46,13 @@ const ProfileCard = () => {
         <button className='rounded-lg bg-green-700 px-4 py-1 text-white transition hover:bg-green-600 flex justify-center items-center'>
           Contact Me <IoIosSend className='h-4 w-4 ml-2' />
         </button>
-        <button className='rounded-full bg-blue-600 p-3 text-white transition hover:bg-blue-700'>
-          <FaFacebookMessenger className='w-5 h-5' />
-        </button>
+        <Link
+          to='https://m.me/imkawsar007' // Redirects to Messenger
+          target='_blank'
+          className='rounded-full bg-blue-600 p-3 text-white transition hover:bg-blue-700'
+        >
+          <FaFacebookMessenger className='w-5 h-5 transition-transform transform hover:scale-110' />
+        </Link>
       </div>
 
       <div className='mt-2 w-full border-t-2 border-black dark:border-white'>
