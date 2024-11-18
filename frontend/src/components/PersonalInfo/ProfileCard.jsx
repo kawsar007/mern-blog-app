@@ -57,8 +57,13 @@ const ProfileCard = () => {
 
       <div className='mt-2 w-full border-t-2 border-black dark:border-white'>
         <div className='mt-2 flex justify-center gap-6 pb-2 text-gray-400'>
-          <Link
+          {/* <Link
             href='imkawsar007@gmail.com'
+            className='transition hover:text-gray-200'>
+            <CiMail className='w-5 h-5' />
+          </Link> */}
+          <Link
+            to='mailto:imkawsar007@gmail.com' // Updated to use mailto protocol
             className='transition hover:text-gray-200'>
             <CiMail className='w-5 h-5' />
           </Link>
@@ -84,7 +89,7 @@ const ProfileCard = () => {
             className='transition hover:text-gray-200'>
             <FaLinkedin className='w-5 h-5' />
           </Link>
-          <Link href='#' className='transition hover:text-gray-200'>
+          <Link href='https://www.instagram.com/imkawsar007/' target='_blank' className='transition hover:text-gray-200'>
             <FaInstagram className='w-5 h-5' />
           </Link>
           <Link
