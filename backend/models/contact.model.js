@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const contactSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true, match: /.+\@.+\..+/ }, // Added validation
-  phone: { type: String }, // Added validation
+  name: String,
+  email: String,
+  phone: String,
   whyContact: String,
   message: String,
   date: { type: Date, default: Date.now },
