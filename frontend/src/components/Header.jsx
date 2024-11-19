@@ -116,6 +116,9 @@ const Header = () => {
         <Navbar.Link active={pathname === "/about"} as={"div"}>
           <Link to="/about">About</Link>
         </Navbar.Link>
+        <Navbar.Link active={pathname === "/contact"} as={"div"}>
+          <Link to="/contact">Contact</Link>
+        </Navbar.Link>
         <Navbar.Link active={pathname === "/projects"} as={"div"}>
           <Link to="/projects">Projects</Link>
         </Navbar.Link>

@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import CreatePost from "./pages/CreatePost";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Home from "./pages/Home";
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/search" element={<Search />} />

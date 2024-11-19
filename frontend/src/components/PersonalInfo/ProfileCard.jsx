@@ -43,9 +43,9 @@ const ProfileCard = () => {
       </div>
 
       <div className='mt-6 flex justify-center gap-4 mb-4'>
-        <button className='rounded-lg bg-green-700 px-4 py-1 text-white transition hover:bg-green-600 flex justify-center items-center'>
+        <Link to="/contact" className='rounded-lg bg-green-700 px-4 py-1 text-white transition hover:bg-green-600 flex justify-center items-center'>
           Contact Me <IoIosSend className='h-4 w-4 ml-2' />
-        </button>
+        </Link>
         <Link
           to='https://m.me/imkawsar007' // Redirects to Messenger
           target='_blank'
@@ -57,11 +57,7 @@ const ProfileCard = () => {
 
       <div className='mt-2 w-full border-t-2 border-black dark:border-white'>
         <div className='mt-2 flex justify-center gap-6 pb-2 text-gray-400'>
-          {/* <Link
-            href='imkawsar007@gmail.com'
-            className='transition hover:text-gray-200'>
-            <CiMail className='w-5 h-5' />
-          </Link> */}
+
           <Link
             to='mailto:imkawsar007@gmail.com' // Updated to use mailto protocol
             className='transition hover:text-gray-200'>
