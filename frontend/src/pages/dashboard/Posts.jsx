@@ -9,7 +9,7 @@ export default function Posts() {
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [postIdToDelete, setPostIdToDelete] = useState("");
+  const [postIdToDelete, setPostIdToDelete] = useState("");  
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -29,7 +29,7 @@ export default function Posts() {
     if (currentUser.isAdmin) {
       fetchPosts();
     }
-  }, [currentUser._id]);
+  }, [currentUser._id, currentUser.isAdmin]);
 
   const handleShowMore = async () => {
     const startIndex = userPosts.length;

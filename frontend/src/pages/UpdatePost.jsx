@@ -24,7 +24,9 @@ const UpdatePost = () => {
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
 
-  console.log(formData._id);
+
+
+  console.log("postId._id", postId);
 
   useEffect(() => {
     try {
@@ -36,9 +38,11 @@ const UpdatePost = () => {
           setPublishError(data.message);
           return;
         }
-        if (res.ok) {
+        if (res.ok && data?.posts && data?.posts?.length > 0) {
           setPublishError(null);
           setFormData(data.posts[0]);
+        } else {
+          setPublishError("Post not found")
         }
       };
       fetchPost();
@@ -88,7 +92,7 @@ const UpdatePost = () => {
     e.preventDefault();
     try {
       const res = await fetch(
-        `/api/post/updatepost/${formData?._id}/${currentUser._id}`,
+        `/api/post/updatepost/${postId}/${currentUser._id}`,
         {
           method: "PUT",
           headers: {
