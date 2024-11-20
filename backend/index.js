@@ -6,6 +6,7 @@ import path from 'path';
 import authRoutes from "./routes/auth.route.js";
 import commentRoutes from "./routes/comment.route.js";
 import contactRoutes from "./routes/contact.route.js";
+import favouritesRoutes from "./routes/favourites.routes.js";
 import postRoutes from "./routes/post.route.js";
 import userRoutes from "./routes/user.route.js";
 
@@ -43,6 +44,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/favourites", favouritesRoutes)
 
 app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
