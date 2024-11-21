@@ -1,87 +1,85 @@
-import { useEffect, useState } from "react";
 import { FaGithub } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import PersonalInfo from "../components/PersonalInfo";
 import PostCard from "../components/PostCard";
+import { usePosts } from "../context/PostContext";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
-  const { currentUser } = useSelector((state) => state.user);
+  const { posts, handleAddFavourite, handleRemoveFavourite } = usePosts();
 
-  console.log(currentUser?._id);
+  // console.log(currentUser?._id);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [postsRes, favouritesRes] = await Promise.all([
-          fetch("/api/post/getPosts"),
-          fetch("/api/favourites"),
-        ]);
-        const postsData = await postsRes.json();
-        const favouritesData = await favouritesRes.json();
-        const favouritePosts = favouritesData.map((post) => post._id);
-        const mergedPosts = postsData.posts.map((post) => ({
-          ...post,
-          isFavourite: favouritePosts.includes(post._id),
-        }));
-        setPosts(mergedPosts);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const [postsRes, favouritesRes] = await Promise.all([
+  //         fetch("/api/post/getPosts"),
+  //         fetch("/api/favourites"),
+  //       ]);
+  //       const postsData = await postsRes.json();
+  //       const favouritesData = await favouritesRes.json();
+  //       const favouritePosts = favouritesData.map((post) => post._id);
+  //       const mergedPosts = postsData.posts.map((post) => ({
+  //         ...post,
+  //         isFavourite: favouritePosts.includes(post._id),
+  //       }));
+  //       setPosts(mergedPosts);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
-  // Utility function for handling API actions
-  const handleApiAction = async (url, payload) => {
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+  // // Utility function for handling API actions
+  // const handleApiAction = async (url, payload) => {
+  //   try {
+  //     const response = await fetch(url, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(payload),
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`API request failed: ${response.statusText}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`API request failed: ${response.statusText}`);
+  //     }
 
-      return response.json();
-    } catch (error) {
-      console.error("Error during API action:", error.message);
-      throw error;
-    }
-  };
+  //     return response.json();
+  //   } catch (error) {
+  //     console.error("Error during API action:", error.message);
+  //     throw error;
+  //   }
+  // };
 
-  const handleAddFavourite = async (postId) => {
-    try {
-      const userId = currentUser?._id;
-      await handleApiAction("/api/favourites/add", { postId, userId });
-      console.log(`Post ${postId} added to favourites.`);
-      setPosts((prevPosts) =>
-        prevPosts.map((post) =>
-          post._id === postId ? { ...post, isFavourite: true } : post,
-        ),
-      );
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+  // const handleAddFavourite = async (postId) => {
+  //   try {
+  //     const userId = currentUser?._id;
+  //     await handleApiAction("/api/favourites/add", { postId, userId });
+  //     console.log(`Post ${postId} added to favourites.`);
+  //     setPosts((prevPosts) =>
+  //       prevPosts.map((post) =>
+  //         post._id === postId ? { ...post, isFavourite: true } : post,
+  //       ),
+  //     );
+  //   } catch (error) {
+  //     console.error(error.message);
+  //   }
+  // };
 
-  const handleRemoveFavourite = async (postId) => {
-    try {
-      const userId = currentUser?._id;
-      await handleApiAction("/api/favourites/remove", { postId, userId });
-      console.log(`Post ${postId} removed from favourites.`);
-      setPosts((prevPosts) =>
-        prevPosts.map((post) =>
-          post._id === postId ? { ...post, isFavourite: false } : post,
-        ),
-      );
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+  // const handleRemoveFavourite = async (postId) => {
+  //   try {
+  //     const userId = currentUser?._id;
+  //     await handleApiAction("/api/favourites/remove", { postId, userId });
+  //     console.log(`Post ${postId} removed from favourites.`);
+  //     setPosts((prevPosts) =>
+  //       prevPosts.map((post) =>
+  //         post._id === postId ? { ...post, isFavourite: false } : post,
+  //       ),
+  //     );
+  //   } catch (error) {
+  //     console.error(error.message);
+  //   }
+  // };
 
   return (
     <div>
