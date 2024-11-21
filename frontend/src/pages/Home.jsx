@@ -7,19 +7,31 @@ import PostCard from "../components/PostCard";
 export default function Home() {
   const [posts, setPosts] = useState([]);
 
-  console.log(posts);
+  console.log("Home Posts ---> ", posts);
+  
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await fetch("/api/post/getPosts");
-      const data = await res.json();
-      // const sortedPosts = data.posts.sort(
-      //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-      // );
-      setPosts(data.posts);
+    const fetchData = async () => {
+      try {
+        const [postsRes, favouritesRes] = await Promise.all([
+          fetch("/api/post/getPosts"),
+          fetch("/api/favourites"),
+        ]);
+        const postsData = await postsRes.json();
+        const favouritesData = await favouritesRes.json();
+        const favouritePosts = favouritesData.map((post) => post._id);
+        const mergedPosts = postsData.posts.map((post) => ({
+          ...post,
+          isFavourite: favouritePosts.includes(post._id),
+        }));
+        setPosts(mergedPosts);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
-    fetchPosts();
+    fetchData();
   }, []);
+
   return (
     <div>
       <div
@@ -67,7 +79,6 @@ export default function Home() {
       </div>
       <div>
         <PersonalInfo />
-        
       </div>
 
       {/* <div className='p-3 bg-amber-100 dark:bg-slate-700'>
