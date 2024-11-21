@@ -13,7 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
-  const [searchTerm, setSearchTerm] = useState('');  
+  const [searchTerm, setSearchTerm] = useState('');    
 
   useEffect(() => {
     const urlParams = new URLSearchParams(search);

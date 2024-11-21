@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { FaGithub } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import PersonalInfo from "../components/PersonalInfo";
 import PostCard from "../components/PostCard";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const { currentUser } = useSelector((state) => state.user);
 
-  console.log("Home Posts ---> ", posts);
-  
+  console.log(currentUser?._id);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,6 +32,56 @@ export default function Home() {
     };
     fetchData();
   }, []);
+
+  // Utility function for handling API actions
+  const handleApiAction = async (url, payload) => {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.statusText}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error("Error during API action:", error.message);
+      throw error;
+    }
+  };
+
+  const handleAddFavourite = async (postId) => {
+    try {
+      const userId = currentUser?._id;
+      await handleApiAction("/api/favourites/add", { postId, userId });
+      console.log(`Post ${postId} added to favourites.`);
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post._id === postId ? { ...post, isFavourite: true } : post,
+        ),
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const handleRemoveFavourite = async (postId) => {
+    try {
+      const userId = currentUser?._id;
+      await handleApiAction("/api/favourites/remove", { postId, userId });
+      console.log(`Post ${postId} removed from favourites.`);
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post._id === postId ? { ...post, isFavourite: false } : post,
+        ),
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <div>
@@ -91,7 +142,12 @@ export default function Home() {
             <h2 className='text-2xl font-semibold text-center'>Recent Posts</h2>
             <div className='flex flex-wrap gap-4'>
               {posts.map((post) => (
-                <PostCard key={post._id} post={post} />
+                <PostCard
+                  key={post._id}
+                  post={post}
+                  handleAddFavourite={() => handleAddFavourite(post._id)}
+                  handleRemoveFavourite={() => handleRemoveFavourite(post._id)}
+                />
               ))}
             </div>
             <Link
