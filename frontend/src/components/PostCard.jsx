@@ -60,7 +60,7 @@ export default function PostCard({
               {post?.isFavourite ? (
                 <MdFavorite
                   size={26}
-                  color='green'
+                  color='red'
                   onClick={handleRemoveFavourite}
                   className='cursor-pointer'
                 />

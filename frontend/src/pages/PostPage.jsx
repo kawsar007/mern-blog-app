@@ -4,53 +4,49 @@ import { Link, useParams } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import PostCard from "../components/PostCard";
+import { usePosts } from "../context/PostContext";
 
 const PostPage = () => {
   const { postSlug } = useParams();
+  const { posts, handleAddFavourite, handleRemoveFavourite } = usePosts();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
 
+  // Fetch individual post by slug
   useEffect(() => {
-    const fetchPost = async () => {
+    const fetchPost = () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
-        const data = await res.json();
-
-        if (!res.ok) {
+        const fetchedPost = posts.find((p) => p.slug === postSlug); // Find the post from global posts
+        if (!fetchedPost) {
           setError(true);
-          setLoading(false);
-          return;
-        }
-        if (res.ok) {
-          setPost(data.posts[0]);
-          setLoading(false);
+        } else {
+          setPost(fetchedPost);
           setError(false);
         }
       } catch (error) {
         setError(true);
+      } finally {
         setLoading(false);
       }
     };
-    fetchPost();
-  }, [postSlug]);
 
+    fetchPost();
+  }, [postSlug, posts]);
+
+  // Get recent posts from global state
   useEffect(() => {
-    try {
-      const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/post/getposts?limit=3`);
-        const data = await res.json();
-        if (res.ok) {
-          setRecentPosts(data.posts);
-        }
-      };
-      fetchRecentPosts();
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
+    const fetchRecentPosts = () => {
+      const sortedPosts = [...posts].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      ); // Sort posts by createdAt descending
+      setRecentPosts(sortedPosts.slice(0, 3)); // Get top 3 recent posts
+    };
+
+    fetchRecentPosts();
+  }, [posts]);
 
   if (loading)
     return (
@@ -65,7 +61,7 @@ const PostPage = () => {
         {post && post.title}
       </h1>
       <Link
-        to={`/search?category=${post.category}`}
+        to={`/search?category=${post?.category}`}
         className='self-center mt-5'>
         <Button color='gray' pill size='xs'>
           {post && post.category}
@@ -98,6 +94,8 @@ const PostPage = () => {
               <PostCard
                 key={post._id}
                 post={post}
+                handleAddFavourite={() => handleAddFavourite(post._id)}
+                handleRemoveFavourite={() => handleRemoveFavourite(post._id)}
               />
             ))}
         </div>
