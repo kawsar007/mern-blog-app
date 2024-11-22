@@ -10,8 +10,6 @@ export default function PostCard({
 }) {
   const { currentUser } = useSelector((state) => state.user);
 
-  console.log(currentUser);
-
   return (
     <article className='overflow-hidden rounded-lg shadow transition hover:shadow-lg w-full sm:w-[350px]    bg-white text-black dark:bg-gray-800 dark:text-white'>
       <img alt='' src={post?.image} className='h-56 w-full object-cover' />

@@ -7,6 +7,7 @@ const PostsContext = createContext();
 
 export const PostsProvider = ({ children }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const [showMore, setShowMore] = useState(false);
 
   const [posts, setPosts] = useState([]);
 
@@ -28,6 +29,12 @@ export const PostsProvider = ({ children }) => {
         }));
 
         setPosts(mergedPosts);
+
+        if (mergedPosts.length === 9) {
+          setShowMore(true);
+        } else {
+          setShowMore(false);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -78,6 +85,9 @@ export const PostsProvider = ({ children }) => {
     <PostsContext.Provider
       value={{
         posts,
+        showMore,
+        setShowMore,
+        setPosts,
         handleAddFavourite,
         handleRemoveFavourite,
       }}>
