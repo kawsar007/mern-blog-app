@@ -56,7 +56,7 @@ const ProfileCard = () => {
       </div>
 
       <div className='mt-2 w-full border-t-2 border-black dark:border-white'>
-        <div className='mt-2 flex justify-center gap-6 pb-2 text-gray-400'>
+        <div className='mt-4 flex justify-center gap-6 pb-2 text-gray-400'>
 
           <Link
             to='mailto:imkawsar007@gmail.com' // Updated to use mailto protocol

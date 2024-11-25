@@ -9,11 +9,13 @@ const PostsContext = createContext();
 export const PostsProvider = ({ children }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [showMore, setShowMore] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         // Frtch all posts
         const postsRes = await fetch("/api/post/getPosts");
@@ -42,6 +44,8 @@ export const PostsProvider = ({ children }) => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -95,6 +99,7 @@ export const PostsProvider = ({ children }) => {
   return (
     <PostsContext.Provider
       value={{
+        loading,
         posts,
         showMore,
         setShowMore,

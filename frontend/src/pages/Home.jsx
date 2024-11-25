@@ -1,11 +1,13 @@
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Loading from "../common/Loading";
 import PersonalInfo from "../components/PersonalInfo";
 import PostCard from "../components/PostCard";
 import { usePosts } from "../context/PostContext";
 
 export default function Home() {
-  const { posts, handleAddFavourite, handleRemoveFavourite } = usePosts();
+  const { loading, posts, handleAddFavourite, handleRemoveFavourite } =
+    usePosts();
 
   return (
     <div>
@@ -60,28 +62,37 @@ export default function Home() {
         <CallToAction />
       </div> */}
 
-      <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
-        {posts && posts.length > 0 && (
-          <div className='flex flex-col gap-6'>
-            <h2 className='text-2xl font-semibold text-center'>Recent Posts</h2>
-            <div className='flex flex-wrap gap-4'>
-              {posts.slice(0, 6).map((post) => (
-                <PostCard
-                  key={post._id}
-                  post={post}
-                  handleAddFavourite={() => handleAddFavourite(post._id)}
-                  handleRemoveFavourite={() => handleRemoveFavourite(post._id)}
-                />
-              ))}
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
+          {posts && posts.length > 0 && (
+            <div className='flex flex-col gap-6'>
+              <h2 className='text-2xl font-semibold text-center'>
+                Recent Posts
+              </h2>
+              <div className='flex flex-wrap gap-4'>
+                {posts.slice(0, 6).map((post) => (
+                  <PostCard
+                    key={post._id}
+                    post={post}
+                    handleAddFavourite={() => handleAddFavourite(post._id)}
+                    handleRemoveFavourite={() =>
+                      handleRemoveFavourite(post._id)
+                    }
+                  />
+                ))}
+              </div>
+              <Link
+                to={"/search"}
+                className='text-lg text-teal-500 hover:underline text-center'>
+                View all posts
+              </Link>
             </div>
-            <Link
-              to={"/search"}
-              className='text-lg text-teal-500 hover:underline text-center'>
-              View all posts
-            </Link>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
+
     </div>
   );
 }
