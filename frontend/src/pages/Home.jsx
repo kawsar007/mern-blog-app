@@ -1,16 +1,30 @@
+import { useEffect, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import bgImg from "../assets/bg-img.png";
-import heroImg from "../assets/hero1.png";
+import hero1 from "../assets/hero1.png";
+import hero2 from "../assets/hero2.png";
+import hero3 from "../assets/hero3.png";
 import Loading from "../common/Loading";
 import PersonalInfo from "../components/PersonalInfo";
 import PostCard from "../components/PostCard";
 import { usePosts } from "../context/PostContext";
 
+const images = [hero1, hero2, hero3];
+
 export default function Home() {
   const { loading, posts, handleAddFavourite, handleRemoveFavourite } =
     usePosts();
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change every 3 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
   return (
     <div>
       <div
@@ -46,9 +60,26 @@ export default function Home() {
             </div>
           </div>
 
-          {/* image */}
-          <div className='w-full lg:w-[50%]'>
-            <img src={heroImg} alt='image' className='w-full' />
+          <div className='w-full lg:w-[50%] overflow-hidden relative hidden lg:block'>
+            {/* Carousel Wrapper */}
+            <div
+              className='flex transition-transform duration-500'
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`,
+              }}>
+              {/* Render Images */}
+              {images.map((image, index) => (
+                <div
+                  key={index}
+                  className='min-w-full flex justify-center h-full'>
+                  <img
+                    src={image}
+                    alt={`Slide ${index + 1}`}
+                    className='w-full h-auto object-cover'
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </header>
       </div>
