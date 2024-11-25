@@ -96,6 +96,11 @@ export const PostsProvider = ({ children }) => {
     }
   };
 
+  const getFavourites = () => {
+    return posts.filter(post => post.isFavourite);
+  };
+  
+
   return (
     <PostsContext.Provider
       value={{
@@ -106,6 +111,7 @@ export const PostsProvider = ({ children }) => {
         setPosts,
         handleAddFavourite,
         handleRemoveFavourite,
+        getFavourites
       }}>
       {children}
     </PostsContext.Provider>

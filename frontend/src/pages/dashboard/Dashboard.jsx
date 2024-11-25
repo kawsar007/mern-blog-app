@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import DashboardComp from "../../components/DashboardComp";
 import DashboardComments from "./Comments";
+import Favourits from "./Favourits";
 import Posts from "./Posts";
 import Profile from "./Profile";
 import DashboardSidebar from "./Sidebar";
@@ -27,6 +28,8 @@ const Dashboard = () => {
       {tab === "profile" && <Profile />}
       {/* Posts */}
       {tab === "posts" && <Posts />}
+      {/* Favourits */}
+      {tab === "favourits" && <Favourits />}
       {/* Users */}
       {tab === "users" && <Users />}
       {/* comments */}
