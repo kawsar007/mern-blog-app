@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 // Create context
 const PostsContext = createContext();
@@ -14,38 +15,42 @@ export const PostsProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [postsRes, favouritesRes] = await Promise.all([
-          fetch("/api/post/getPosts"),
-          fetch("/api/favourites"),
-        ]);
-
+        // Frtch all posts
+        const postsRes = await fetch("/api/post/getPosts");
         const postsData = await postsRes.json();
-        const favouritesData = await favouritesRes.json();
 
-        const favouritePosts = favouritesData.map((post) => post._id);
-        const mergedPosts = postsData.posts.map((post) => ({
-          ...post,
-          isFavourite: favouritePosts.includes(post._id),
-        }));
+        if (currentUser) {
+          // Fetch favorites only if the user is logged in
+          const favouritesRes = await fetch("/api/favourites");
+          const favouritesData = await favouritesRes.json();
 
-        setPosts(mergedPosts);
+          const favouritePosts = favouritesData.map((post) => post._id);
 
-        if (mergedPosts.length === 9) {
-          setShowMore(true);
+          // Merge posts with favorites data
+          const mergedPosts = postsData.posts.map((post) => ({
+            ...post,
+            isFavourite: favouritePosts.includes(post._id),
+          }));
+
+          setPosts(mergedPosts);
+
+          setShowMore(mergedPosts.length === 9);
         } else {
-          setShowMore(false);
+          setPosts(postsData.posts);
+
+          setShowMore(postsData.posts.length === 9);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [currentUser]);
 
   const handleAddFavourite = async (postId) => {
     const userId = currentUser?._id;
     try {
-      await fetch("/api/favourites/add", {
+      const res = await fetch("/api/favourites/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ postId, userId }),
@@ -56,8 +61,12 @@ export const PostsProvider = ({ children }) => {
           post._id === postId ? { ...post, isFavourite: true } : post,
         ),
       );
+      console.log("handleAddFavourite", res.data);
+
+      toast.success("Added to favourites");
     } catch (error) {
       console.error("Error adding to favourites:", error);
+      console.log(error);
     }
   };
 
@@ -70,6 +79,8 @@ export const PostsProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ postId, userId }),
       });
+
+      toast.success("Remove to favourites");
 
       setPosts((prevPosts) =>
         prevPosts.map((post) =>

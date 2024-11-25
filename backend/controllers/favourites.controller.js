@@ -44,7 +44,7 @@ export const removeFromFavourites = async (req, res, next) => {
 }
 
 export const getFavourites = async (req, res, next) => {
-  try {    
+  try {
     const favourites = await Favourite.find({ userId: req.user?.id }).populate('postId');
     res.status(200).json(favourites.map((fav) => fav.postId));
   } catch (error) {

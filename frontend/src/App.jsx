@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AdminPrivateRoute from "./components/AdminPrivateRoute";
 import FooterComp from "./components/Footer";
 import Header from "./components/Header";
@@ -21,6 +23,7 @@ function App() {
   return (
     <BrowserRouter>
       <PostsProvider>
+      <ToastContainer autoClose={3500} />
         <ScrollToTop />
         <Header />
         <Routes>
