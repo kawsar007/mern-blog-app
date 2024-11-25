@@ -1,5 +1,7 @@
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import bgImg from "../assets/bg-img.png";
+import heroImg from "../assets/hero1.png";
 import Loading from "../common/Loading";
 import PersonalInfo from "../components/PersonalInfo";
 import PostCard from "../components/PostCard";
@@ -14,7 +16,7 @@ export default function Home() {
       <div
         className='w-full h-full rounded-md'
         style={{
-          backgroundImage: `url("https://i.ibb.co/x1rvpZs/0f-Y6ep3cd1c.png")`,
+          backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover",
         }}>
         {/* header */}
@@ -46,11 +48,7 @@ export default function Home() {
 
           {/* image */}
           <div className='w-full lg:w-[50%]'>
-            <img
-              src='https://i.ibb.co/kGnQZJ5/free-iphone-12-mini-mockup-scene-1-removebg-preview.png'
-              alt='image'
-              className='w-full'
-            />
+            <img src={heroImg} alt='image' className='w-full' />
           </div>
         </header>
       </div>
@@ -92,7 +90,6 @@ export default function Home() {
           )}
         </div>
       )}
-
     </div>
   );
 }
