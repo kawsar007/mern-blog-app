@@ -99,11 +99,11 @@ const Search = () => {
 
   return (
     <div className='flex flex-col md:flex-row'>
-      <div className='border-gray-500 p-7 border-b md:border-r md:min-h-screen'>
-        <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
-          <div className='flex items-center gap-2'>
+      <div className='border-gray-500 p-4 md:w-[320px] border-b md:border-r md:min-h-screen'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-2'>
             <label className='whitespace-nowrap font-semibold'>
-              Search Term:{" "}
+              Search Term:
             </label>
             <TextInput
               placeholder='Search...'
@@ -111,9 +111,10 @@ const Search = () => {
               type='text'
               value={sidebarData.searchTerm}
               onChange={handleChange}
+              className='w-full' // Make input full width
             />
           </div>
-          <div className='flex items-center gap-2'>
+          <div className='flex flex-col gap-2'>
             <label className='font-semibold'>Sort:</label>
             <Select
               className='w-full'
@@ -124,7 +125,7 @@ const Search = () => {
               <option value='asc'>Oldest</option>
             </Select>
           </div>
-          <div className='flex items-center gap-2'>
+          <div className='flex flex-col gap-2'>
             <label className='font-semibold'>Category:</label>
             <Select
               onChange={handleChange}
@@ -142,6 +143,7 @@ const Search = () => {
           </Button>
         </form>
       </div>
+
       <div className='w-full'>
         <h1 className='text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5'>
           Posts results:
