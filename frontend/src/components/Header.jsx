@@ -49,7 +49,7 @@ const Header = () => {
   };
   
   return (
-    <Navbar className="border-b-2">
+    <Navbar className="sticky top-0 z-50 border-b-2">
       <Link
         to="/"
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
@@ -64,7 +64,7 @@ const Header = () => {
           type="text"
           placeholder="Search..."
           rightIcon={AiOutlineSearch}
-          className="hidden lg:inline"
+          className="hidden lg:inline border-0"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
