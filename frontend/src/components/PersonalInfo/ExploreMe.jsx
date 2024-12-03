@@ -10,12 +10,12 @@ const ExploreMe = () => {
       <img src={me} alt='Kawsar' className='w-full h-[450px] object-cover' />
 
       {/*  texts  */}
-      <div className='flex items-center justify-evenly backdrop-blur-md text-white absolute bottom-0 w-full pt-[15px] pb-[30px] translate-y-[200px] group-hover:translate-y-0 transition-all duration-[400ms] overflow-hidden'>
+      <div className='flex items-center justify-evenly backdrop-blur-md text-white absolute bottom-0 w-full pt-[15px] pb-[30px] translate-y-0 transition-all duration-[400ms] overflow-hidden'>
         <div>
-          <h3 className='text-[1.5rem] translate-y-[-50px] group-hover:translate-y-0 transition-all duration-700 font-bold tracking-[2px] leading-[30px] opacity-0 group-hover:opacity-100'>
+          <h3 className='text-[1.5rem] translate-y-0 transition-all duration-700 font-bold tracking-[2px] leading-[30px] opacity-100'>
             Md Kawsar Mia
           </h3>
-          <p className='text-[1rem] translate-y-[100px] group-hover:translate-y-0 transition-all duration-500 opacity-0 group-hover:opacity-100'>
+          <p className='text-[1rem] translate-y-0 transition-all duration-500 opacity-100'>
             Software Engineer
           </p>
         </div>
