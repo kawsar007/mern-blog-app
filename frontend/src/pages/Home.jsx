@@ -6,6 +6,7 @@ import hero1 from "../assets/hero1.png";
 import hero2 from "../assets/hero2.png";
 import hero3 from "../assets/hero3.png";
 import Loading from "../common/Loading";
+import NewsletterForm from "../components/NewsLetter";
 import PersonalInfo from "../components/PersonalInfo";
 import PostCard from "../components/PostCard";
 import { usePosts } from "../context/PostContext";
@@ -121,6 +122,8 @@ export default function Home() {
           )}
         </div>
       )}
+
+      <NewsletterForm />
     </div>
   );
 }
